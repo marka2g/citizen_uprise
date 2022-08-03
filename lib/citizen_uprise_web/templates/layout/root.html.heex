@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="csrf-token" content={csrf_token_value()}>
+    <%= live_title_tag assigns[:page_title] || "CitizenUprise", suffix: " · Phoenix Framework" %>
+    <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
+    <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
+  </head>
+  <body>
+    <header>
+      <section class="container">
+        <nav class="fixed top-0 left-0 right-0 z-30 bg-white shadow">
+          <div class="container mx-auto px-6 py-3 md:flex md:justify-between md:items-center">
+            <div class="flex justify-between items-center">
+              <div>
+                <a class="inline-block" href="/">
+                  <img src={Routes.static_path(@conn, "/images/fist_of_rays.png")} class="h-16 object-contain" />
+                </a>
+              </div>
+            </div>
+            <div class="flex items-center">
+              <div class="flex flex-col md:flex-row md:mx-6">
+                <%= render "_user_menu.html", assigns %>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </section>
+    </header>
+    
+    <%= @inner_content %>
+  </body>
+
+  <footer class="bg-gray-700 mt-auto py-3">
+    <div class="container pb-4 max-w-4xl mx-auto text-center text-blue-300 text-sm">
+      &copy; <%= DateTime.utc_now.year %> Citizen Uprise
+    </div>
+  </footer>
+</html>

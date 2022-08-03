@@ -1,0 +1,77 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* taken from live_view_studio_notes */
+body {
+  @apply antialiased relative bg-gray-200 font-sans;
+}
+header {
+  @apply mb-8;
+}
+.container {
+  @apply max-w-6xl mx-auto px-6;
+}
+h1 {
+  @apply text-center text-gray-900 font-extrabold text-4xl mb-8;
+}
+ul.examples { @apply mt-8 text-2xl mx-auto max-w-xs list-disc;}
+ul.examples form .group { @apply flex items-baseline;}
+ul.examples li { @apply mt-3; };
+ul.examples li a { @apply underline; }
+
+.icon {
+  fill: currentColor;
+}
+header section { 
+  @apply m-4 flex justify-end; 
+} 
+
+nav ul { 
+  @apply flex justify-between;
+}
+
+nav ul li { @apply mx-2 text-lg text-gray-700; }
+nav ul li a:hover { @apply underline; }
+
+/* auth */
+.auth {
+  @apply px-6 mt-8 mx-auto w-full max-w-md;
+}
+.auth h3 {
+  @apply mt-6 mb-2 text-xl font-bold text-gray-900;
+}
+.auth form {
+  @apply bg-white px-10 py-8 mb-6 shadow rounded-lg;
+  @apply px-6 mt-8 mx-auto w-full max-w-md;
+}
+.auth form label {
+  @apply block mb-2 text-sm font-medium text-gray-700;
+}
+.auth form input[type=email], .auth form input[type=password] {
+  @apply mb-4 appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md transition duration-150 ease-in-out text-sm;
+}
+.auth form input[type=email]:focus, .auth form input[type=password]:focus {
+  @apply outline-none ring ring-sky-300 border-sky-300;
+}
+.auth form .checkbox-field {
+  @apply flex items-center mb-4;
+}
+.auth form .checkbox-field input[type=checkbox] {
+  @apply m-0 h-4 w-4 text-gray-700 transition duration-150 ease-in-out;
+}
+.auth form .checkbox-field label {
+  @apply m-0 ml-2;
+}
+.auth form button {
+  @apply mt-2 w-full py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-sky-400 transition duration-150 ease-in-out;
+}
+.auth form button:focus {
+  @apply outline-none border-sky-700 ring ring-sky-300;
+}
+.auth form button:active {
+  @apply bg-sky-700;
+}
+.auth form button:hover {
+  @apply bg-sky-500;
+}
