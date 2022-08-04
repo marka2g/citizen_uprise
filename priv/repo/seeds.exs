@@ -9,3 +9,7 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+alias CitizenUprise.CandidatePopulator
+
+# candidates cycle=2022
+CandidatePopulator.from_csv

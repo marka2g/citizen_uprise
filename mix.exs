@@ -33,6 +33,8 @@ defmodule CitizenUprise.MixProject do
   defp deps do
     [
       {:bcrypt_elixir, "~> 3.0"},
+      {:csv, "~> 2.4"},
+      {:nimble_csv, "~> 1.1"},
       {:phoenix, "~> 1.6.10"},
       {:phoenix_ecto, "~> 4.4"},
       {:ecto_sql, "~> 3.6"},
