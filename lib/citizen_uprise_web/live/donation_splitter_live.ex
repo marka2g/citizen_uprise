@@ -6,54 +6,24 @@ defmodule CitizenUpriseWeb.DonationSplitterLive do
   def mount(_params, _session, socket) do
     socket =
       assign(socket,
-      matches: [],
-      candidate: "",
-      candidates: [],
-      loading: false
-    )
+        matches: [],
+        candidate: "",
+        candidates: [],
+        amount: nil,
+        loading: false
+      )
     {:ok, socket}
   end
 
-  def render(assigns) do
-    ~H"""
-    <h1>Split Up Your Donation</h1>
-    <div id="search">
-      <form id="candidate-search"
-            phx-submit="candidate-search"
-            phx-change="suggest-candidate">
-        <input type="text" name="candidate" value={@candidate}
-               placeholder="Candidate Search"
-               autocomplete="off"
-               list="matches"
-               phx-debounce="250"
-               readonly={@loading}
-               />
-        <button type="submit">
-          <img src="images/search.svg">
-        </button>
-      </form>
-
-      <datalist id="matches">
-        <%= for match <- @matches do %>
-          <option value={match}><%= match %></option>
-        <% end %>
-      </datalist>
-
-      <div class="candidates">
-        <ul>
-          <%= for candidate <- @candidates do %>
-            <li>
-              <div class="first-line">
-                <div class="name"><%= candidate.first_name %> <%= candidate.last_name %></div>
-              </div>
-              <div class="second-line">
-              </div>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-    </div>
-    """
+  defp party_svg(party_abbrev) do
+    case party_abbrev do
+      "DEM" ->
+        "images/Democratic_Disc_64.svg.png"
+      "REP" ->
+        "images/Republicanlogo_64.svg.png"
+      _ ->
+        "images/other_party.svg"
+    end
   end
 
   def handle_event("suggest-candidate", %{"candidate" => prefix}, socket) do
