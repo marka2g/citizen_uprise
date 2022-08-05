@@ -5,8 +5,27 @@ defmodule CitizenUprise.Candidates do
 
   import Ecto.Query, warn: false
   alias CitizenUprise.Repo
-
   alias CitizenUprise.Candidates.Candidate
+
+  def suggest(""), do: []
+
+  def suggest(prefix) do
+    Enum.filter(candidate_names(), &has_prefix?(&1, prefix))
+  end
+
+  defp has_prefix?(candidate, prefix) do
+    String.contains?(String.downcase(candidate), String.downcase(prefix))
+  end
+
+  defp candidate_names do
+    list_candidates()
+    |> Enum.map(fn cnd -> "#{cnd.first_name} #{cnd.last_name} | #{cnd.fec_id}" end)
+  end
+
+  def search_by_fec_id(fec_id) do
+    list_candidates()
+    |> Enum.filter(&(&1.fec_id == fec_id))
+  end
 
   @doc """
   Returns the list of candidates.

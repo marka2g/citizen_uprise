@@ -7,13 +7,16 @@ body {
   @apply antialiased relative bg-gray-200 font-sans;
 }
 header {
+  @apply mb-8 pb-16;
+}
+main.container {
   @apply mb-8;
 }
 .container {
   @apply max-w-6xl mx-auto px-6;
 }
 h1 {
-  @apply text-center text-gray-900 font-extrabold text-4xl mb-8;
+  @apply text-center text-zinc-800 font-extrabold text-4xl mb-8;
 }
 ul.examples { @apply mt-8 text-2xl mx-auto max-w-xs list-disc;}
 ul.examples form .group { @apply flex items-baseline;}
@@ -33,6 +36,68 @@ nav ul {
 
 nav ul li { @apply mx-2 text-lg text-gray-700; }
 nav ul li a:hover { @apply underline; }
+
+/* #search */
+#search {
+  @apply max-w-3xl mx-auto text-center;
+}
+#search form {
+  @apply inline-flex items-center;
+}
+#search form input[type=text] {
+  @apply w-80 h-10 border border-gray-400 rounded-l-md bg-white px-5 text-base;
+}
+#search form input[type=text]:focus {
+  @apply outline-none;
+}
+#search form input[name*=city] {
+  @apply ml-4;
+}
+#search button {
+  @apply h-10 px-4 py-2 bg-transparent border border-gray-400 border-l-0 rounded-r-md transition ease-in-out duration-150 outline-none;
+}
+#search button img {
+  @apply h-4 w-4;
+}
+#search button:hover {
+  @apply bg-gray-300;
+}
+#search .open {
+  @apply inline-flex items-center px-3 py-1 rounded-md text-xs font-medium leading-5 bg-green-200 text-green-800 rounded-full;
+}
+#search .closed {
+  @apply inline-flex items-center px-3 py-1 rounded-md text-xs font-medium leading-5 bg-red-200 text-red-800 rounded-full;
+}
+#search .candidates {
+  @apply mt-8 bg-white shadow overflow-hidden rounded-md;
+}
+#search .candidates li {
+  @apply border-t border-gray-300 px-6 py-4;
+}
+#search .candidates li .first-line {
+  @apply flex items-center justify-between;
+}
+#search .candidates li .first-line .name {
+  @apply text-lg leading-5 font-medium text-zinc-800 truncate;
+}
+#search .candidates li .first-line .status {
+  @apply ml-2 flex-shrink-0 flex;
+}
+#search .candidates li .second-line {
+  @apply mt-2 flex justify-between;
+}
+#search .candidates li .second-line .street {
+  @apply mt-0 flex items-center text-base leading-5 text-gray-400;
+}
+#search .candidates li .second-line .street img {
+  @apply flex-shrink-0 mr-1 h-5 w-5;
+}
+#search .candidates li .second-line .phone_number {
+  @apply mt-0 flex items-center text-sm leading-5 text-gray-400;
+}
+#search .candidates li .second-line .phone_number img {
+  @apply flex-shrink-0 mr-2 h-5 w-5;
+}
 
 /* auth */
 .auth {

@@ -1,0 +1,2 @@
+alias CitizenUprise.Candidates
+alias CitizenUprise.Candidates.Candidate
