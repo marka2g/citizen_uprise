@@ -815,10 +815,6 @@ select {
   grid-column: span 3 / span 3;
 }
 
-.col-span-4 {
-  grid-column: span 4 / span 4;
-}
-
 .col-span-5 {
   grid-column: span 5 / span 5;
 }
@@ -832,6 +828,10 @@ select {
   margin-right: auto;
 }
 
+.ml-20 {
+  margin-left: 5rem;
+}
+
 .mt-6 {
   margin-top: 1.5rem;
 }
@@ -842,10 +842,6 @@ select {
 
 .-ml-px {
   margin-left: -1px;
-}
-
-.mt-4 {
-  margin-top: 1rem;
 }
 
 .mt-2 {
@@ -870,14 +866,6 @@ select {
 
 .ml-3 {
   margin-left: 0.75rem;
-}
-
-.ml-20 {
-  margin-left: 5rem;
-}
-
-.ml-40 {
-  margin-left: 10rem;
 }
 
 .block {
@@ -960,6 +948,10 @@ select {
   max-width: 56rem;
 }
 
+.max-w-3xl {
+  max-width: 48rem;
+}
+
 .flex-shrink-0 {
   flex-shrink: 0;
 }
@@ -992,16 +984,16 @@ select {
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 .grid-cols-8 {
   grid-template-columns: repeat(8, minmax(0, 1fr));
 }
 
 .grid-cols-4 {
   grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-
-.grid-cols-6 {
-  grid-template-columns: repeat(6, minmax(0, 1fr));
 }
 
 .grid-rows-4 {
@@ -1028,12 +1020,12 @@ select {
   justify-content: space-between;
 }
 
-.gap-8 {
-  gap: 2rem;
+.gap-4 {
+  gap: 1rem;
 }
 
-.gap-6 {
-  gap: 1.5rem;
+.gap-8 {
+  gap: 2rem;
 }
 
 .gap-y-4 {
@@ -1169,10 +1161,6 @@ select {
      object-fit: contain;
 }
 
-.p-8 {
-  padding: 2rem;
-}
-
 .p-4 {
   padding: 1rem;
 }
@@ -1191,9 +1179,9 @@ select {
   padding-bottom: 0.5rem;
 }
 
-.py-4 {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 
 .px-1 {
@@ -1224,11 +1212,6 @@ select {
 .py-3 {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
-}
-
-.px-2 {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
 }
 
 .pl-3 {
@@ -1835,22 +1818,6 @@ input[type=range]:focus::-ms-fill-upper {
     grid-column: span 1 / span 1;
   }
 
-  .sm\:col-span-3 {
-    grid-column: span 3 / span 3;
-  }
-
-  .sm\:col-span-7 {
-    grid-column: span 7 / span 7;
-  }
-
-  .sm\:col-span-6 {
-    grid-column: span 6 / span 6;
-  }
-
-  .sm\:col-span-5 {
-    grid-column: span 5 / span 5;
-  }
-
   .sm\:col-span-4 {
     grid-column: span 4 / span 4;
   }
@@ -1872,20 +1839,8 @@ input[type=range]:focus::-ms-fill-upper {
     display: none;
   }
 
-  .sm\:grid-cols-4 {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .sm\:grid-cols-8 {
-    grid-template-columns: repeat(8, minmax(0, 1fr));
-  }
-
   .sm\:grid-cols-6 {
     grid-template-columns: repeat(6, minmax(0, 1fr));
-  }
-
-  .sm\:grid-cols-5 {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 
   .sm\:items-center {
@@ -1900,10 +1855,6 @@ input[type=range]:focus::-ms-fill-upper {
 
   .sm\:rounded-md {
     border-radius: 0.375rem;
-  }
-
-  .sm\:rounded-sm {
-    border-radius: 0.125rem;
   }
 
   .sm\:px-6 {
