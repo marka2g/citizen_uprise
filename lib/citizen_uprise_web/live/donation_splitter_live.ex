@@ -26,8 +26,6 @@ defmodule CitizenUpriseWeb.DonationSplitterLive do
   end
 
   def handle_event("update-donation", %{"partial_donation" => partial_donation}, socket) do
-
-    # partial_donation = (partial_donation |> |> String.to_integer) / 1
     IO.inspect(partial_donation, label: "partial_donation")
     {:noreply, assign(socket, partial_donation: partial_donation)}
   end
