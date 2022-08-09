@@ -1,25 +1,11 @@
 <h1>Split Up Your Donation</h1>
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-  <div class="ml-20 mt-6 grid grid-cols-1 gap-y-4 gap-x-2 sm:grid-cols-6">
-    <div class="sm:col-span-1 items-center ">
-      <form phx-change="set-donation" phx-debounce="250">
-        <label for="donation" class="block text-sm font-medium text-zinc-700">Donation Amount</label>
-        <div class="mt-1 relative rounded-md shadow-sm">
-          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <span class="text-zinc-500 sm:text-sm"> $ </span>
-          </div>
-          <input type="text" value={@donation} name="donation" id="donation" class="focus:ring-blue-500 focus:border-blue-500 block w-full pl-7 pr-12 sm:text-sm border-zinc-300 rounded-md" placeholder="0.00" aria-describedby="donation-currency">
-          <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-            <span class="text-zinc-500 sm:text-sm" id="donation-currency"> USD </span>
-          </div>
-        </div>
-      </form>
-    </div>
-    <div class="sm:col-span-4">
+  <div class="ml-14 mt-6 grid grid-cols-4 gap-x-6 sm:grid-cols-4">
+    <div class="sm:col-span-3">
       <form id="candidate-search"
             phx-submit="candidate-search"
             phx-change="suggest-candidate">
-        <label for="candidate" class="block text-sm font-medium text-zinc-700">Search candidates</label>
+        <label for="candidate-search" class="block text-sm font-medium text-zinc-700">Search candidates</label>
         <div class="mt-1 flex rounded-md shadow-sm">
           <div class="relative flex items-stretch flex-grow focus-within:z-10">
             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -34,13 +20,16 @@
                     phx-debounce="250" readonly={@loading}
                     placeholder="Jane Smith">
           </div>
-          <button type="submit" class="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-zinc-300 text-sm font-medium rounded-r-md text-zinc-700 bg-zinc-50 hover:bg-zinc-100 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
+          <button type="submit" class="ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-zinc-300 text-sm font-medium rounded-r-md text-zinc-700 bg-zinc-50 hover:bg-zinc-100 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
             <svg class="h-5 w-5 text-zinc-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56.966 56.966" fill="currentColor" aria-hidden="true" style="enable-background:new 0 0 56.966 56.966;" xml:space="preserve" >
               <path d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z" fill="#4a5568"/>
             </svg>
           </button>
         </div>
       </form>
+    </div>
+    <div class="sm:col-span-1">
+      Total Donation
     </div>
 
     <datalist id="matches">
@@ -50,27 +39,36 @@
     </datalist>
   </div>
 
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="bg-white shadow overflow-hidden mt-4 sm:rounded-md max-w-3xl mx-auto px-4 sm:px-2 lg:px-4">
     <ul role="list" class="divide-y divide-zinc-200">
       <%= for candidate <- @candidates do %>
-        <li class="px-2 py-2 sm:px-6">
-          <div class="mt-2 p-4 bg-white shadow overflow-hidden sm:rounded-md  max-w-3xl mx-auto">
-            <div class="grid grid-cols-3 gap-4">
-              <div class="p-4 bg-zinc-100 rounded-md flex items-center justify-center">
-                <div class="info grid grid-cols-8 gap-8">
-                  <div class="col-span-3">
-                    <img src={party_svg(candidate.party_abbrev)}>
-                  </div>
-                  <div class="p-4 bg-zinc-100 rounded-md flex items-center  col-span-5">
-                    <strong><%= candidate.first_name %> <%= candidate.last_name %></strong>
-                  </div>
-                </div>
+        <li>
+          <div class="flex hover:bg-zinc-50 items-center px-4 py-4 sm:px-6">
+            <div class="min-w-0 flex-1 flex items-center px-1 py-1">
+              <div class="flex-shrink-0 object-scale-down h-12 w-12 ">
+                <img src={party_svg(candidate.party_abbrev)}>
               </div>
-              <div class="p-4 bg-zinc-100 rounded-md flex items-center justify-center col-span-2">
-                <form class="w-screen" id={"partial-donation-#{candidate.fec_id}"} phx-change="update-donation">
-                  <input type="range" min="0" max={@donation/@candidate_count }
-                          name="partial_donation" value={@partial_donation} />
-                </form>
+              <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
+                <div>
+                  <p class="text-sm font-medium text-indigo-600 truncate"><strong><%= candidate.office %></strong> | <%= candidate.first_name %> <%= candidate.last_name %></p>
+                  <p class="mt-2 flex items-center text-sm text-zinc-500">
+                    <strong><strong><%= candidate.state %></strong> | <%= candidate.fec_id %></strong>
+                  </p>
+                </div>
+                <div class="hidden md:block">
+                  <form phx-change="add-donation" phx-debounce="250">
+                    <label for="donation" class="block text-sm font-medium text-zinc-700">Donation Amount</label>
+                    <div class="mt-1 relative rounded-md shadow-sm">
+                      <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <span class="text-zinc-500 sm:text-sm"> $ </span>
+                      </div>
+                      <input type="text" value="" name="donation" id="donation" class="focus:ring-blue-500 focus:border-blue-500 block w-full pl-7 pr-12 sm:text-sm border-zinc-300 rounded-md" placeholder="0.00" aria-describedby="donation-currency">
+                      <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                        <span class="text-zinc-500 sm:text-sm" id="donation-currency"> USD </span>
+                      </div>
+                    </div>
+                  </form>
+                </div>
               </div>
             </div>
           </div>

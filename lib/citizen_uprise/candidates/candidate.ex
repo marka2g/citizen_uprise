@@ -8,6 +8,7 @@ defmodule CitizenUprise.Candidates.Candidate do
     field :first_name, :string
     field :last_name, :string
     field :party_abbrev, :string
+    field :office, :string
     field :race_status, :string
     field :state, :string
     field :zip, :string
@@ -18,7 +19,7 @@ defmodule CitizenUprise.Candidates.Candidate do
   @doc false
   def changeset(candidate, attrs) do
     candidate
-    |> cast(attrs, [:last_name, :first_name, :fec_id, :fec_link, :state, :zip, :party_abbrev, :race_status])
-    |> validate_required([:last_name, :first_name, :fec_id, :fec_link, :state, :zip, :party_abbrev, :race_status])
+    |> cast(attrs, [:last_name, :first_name, :fec_id, :fec_link, :office, :state, :zip, :party_abbrev, :race_status])
+    |> validate_required([:last_name, :first_name, :fec_id, :fec_link, :state, :zip, :office, :party_abbrev, :race_status])
   end
 end

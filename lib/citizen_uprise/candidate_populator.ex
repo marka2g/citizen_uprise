@@ -20,8 +20,9 @@ defmodule CitizenUprise.CandidatePopulator do
       fec_link: Enum.at(row, 0),
       last_name: parse_name(row, 0),
       first_name: parse_name(row, 1),
-      fec_id: Enum.at(row, 2),
       state: Enum.at(row, 4),
+      office: Enum.at(row, 3),
+      fec_id: Enum.at(row, 2),
       race_status: Enum.at(row, 7), #incumb, challenger, open,
       party_abbrev: Enum.at(row, 6),
       zip: Enum.at(row, 17)

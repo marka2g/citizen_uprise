@@ -5,6 +5,7 @@ defmodule CitizenUprise.Repo.Migrations.CreateCandidates do
     create table(:candidates) do
       add :last_name, :string
       add :first_name, :string
+      add :office, :string
       add :fec_id, :string
       add :fec_link, :string
       add :state, :string

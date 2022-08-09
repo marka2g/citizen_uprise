@@ -2,8 +2,8 @@ defmodule CitizenUpriseWeb.DonationSplitterLive do
   use CitizenUpriseWeb, :live_view
 
   alias CitizenUprise.Candidates
-  alias CitizenUprise.Donations
-  import Number.Currency
+  # alias CitizenUprise.Donations
+  # import Number.Currency
 
   def mount(_params, _session, socket) do
     socket =
@@ -12,17 +12,11 @@ defmodule CitizenUpriseWeb.DonationSplitterLive do
         candidate: "",
         candidates: [],
         candidate_count: 0,
-        donation: 0.0,
-        partial_donation: 0.0,
+        total_donation: 0.0,
+        donations: [],
         loading: false
       )
     {:ok, socket}
-  end
-
-  def handle_event("set-donation", %{"donation" => donation}, socket) do
-    donation = donation |> String.to_float
-    IO.inspect(donation, label: "donation")
-    {:noreply, assign(socket, donation: donation)}
   end
 
   def handle_event("update-donation", %{"partial_donation" => partial_donation}, socket) do
@@ -61,12 +55,12 @@ defmodule CitizenUpriseWeb.DonationSplitterLive do
           |> assign(candidates: [], loading: false)
         {:noreply, socket}
       candidates ->
-        candidate = Enum.at(candidates, 0)
+        # candidate = Enum.at(candidates, 0)
         socket =
           update(
             socket,
             :candidates,
-            fn candidates -> [candidate | socket.assigns.candidates] end
+            fn _ -> [Enum.at(candidates, 0) | socket.assigns.candidates] end
           )
         {:noreply, assign(socket, candidate_count: Enum.count(socket.assigns.candidates), loading: false)}
     end
@@ -75,11 +69,11 @@ defmodule CitizenUpriseWeb.DonationSplitterLive do
   defp party_svg(party_abbrev) do
     case party_abbrev do
       "DEM" ->
-        "images/Democratic_Disc_64.svg.png"
+        "images/2000px-DemocraticLogo.svg_.png"
       "REP" ->
-        "images/Republicanlogo_64.svg.png"
+        "images/clipart-elephant-republican-3.png"
       _ ->
-        "images/other_party.svg"
+        "images/fist_of_rays.png"
     end
   end
 end
