@@ -3,7 +3,7 @@
 ![CitizenUprise - Donation Splitter](https://media.giphy.com/media/qLtXfJmPqADHsYMc2F/giphy.gif)
 
 ### To Use
-> 1. $`mix phx.new citizen_uprise --live`
+> 1. $`git clone git@github.com:marka2g/citizen_uprise.git`
 > 2. set up `dev.ex` and `test.ex` db creds
 > 3. $`mix ecto.create`
 > 4. $`cd citizen_uprise` 
