@@ -1,5 +1,11 @@
 # CitizenUprise
 
+### ToDo
+- [X] add `donations` 
+- [ ] fix form input and button behavior
+- [ ] add container around search and candidate list
+- [ ] prevent `suggest-candidate` from dispaying existing `socket.assigns.candidates`
+
 ### To Add
 - [X] tailwindcss
   - maybe `dartcss` if its not a total p.i.t.a 
@@ -11,6 +17,7 @@
 
 ### Contexts
 > $ `mix phx.gen.context Candidates Candidate candidates last_name:string first_name:string fec_id:string fec_link:string state:string zip:string party_abbrev:string race_status:string`
+> $ `mix phx.gen.context Donations Donation donations amount:float candidate_id:string user_id:string`
 
 ### Setup/Install Steps
 > 1. $`mix phx.new citizen_uprise --live`
@@ -18,7 +25,6 @@
 > 3. $`mix ecto.create`
 > 4. $`cd citizen_uprise` 
 > 5. $`mix phx.gen.auth `
-
 
 <><><><><><><><><><><><><>
 

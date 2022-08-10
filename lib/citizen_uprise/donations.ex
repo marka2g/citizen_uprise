@@ -1,18 +1,104 @@
 defmodule CitizenUprise.Donations do
-  def calculate_remaining(partial_donation) do
-    IO.inspect(partial_donation, label: "partial_donation")
+  @moduledoc """
+  The Donations context.
+  """
+
+  import Ecto.Query, warn: false
+  alias CitizenUprise.Repo
+
+  alias CitizenUprise.Donations.Donation
+
+  @doc """
+  Returns the list of donations.
+
+  ## Examples
+
+      iex> list_donations()
+      [%Donation{}, ...]
+
+  """
+  def list_donations do
+    Repo.all(Donation)
   end
 
-  def calculate_max do
-    # max={@donation/@candidate_count }
+  @doc """
+  Gets a single donation.
+
+  Raises `Ecto.NoResultsError` if the Donation does not exist.
+
+  ## Examples
+
+      iex> get_donation!(123)
+      %Donation{}
+
+      iex> get_donation!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_donation!(id), do: Repo.get!(Donation, id)
+
+  @doc """
+  Creates a donation.
+
+  ## Examples
+
+      iex> create_donation(%{field: value})
+      {:ok, %Donation{}}
+
+      iex> create_donation(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_donation(attrs \\ %{}) do
+    %Donation{}
+    |> Donation.changeset(attrs)
+    |> Repo.insert()
   end
 
+  @doc """
+  Updates a donation.
+
+  ## Examples
+
+      iex> update_donation(donation, %{field: new_value})
+      {:ok, %Donation{}}
+
+      iex> update_donation(donation, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_donation(%Donation{} = donation, attrs) do
+    donation
+    |> Donation.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a donation.
+
+  ## Examples
+
+      iex> delete_donation(donation)
+      {:ok, %Donation{}}
+
+      iex> delete_donation(donation)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_donation(%Donation{} = donation) do
+    Repo.delete(donation)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking donation changes.
+
+  ## Examples
+
+      iex> change_donation(donation)
+      %Ecto.Changeset{data: %Donation{}}
+
+  """
+  def change_donation(%Donation{} = donation, attrs \\ %{}) do
+    Donation.changeset(donation, attrs)
+  end
 end
-
-# def calculate(seats) do
-#   if seats <= 5 do
-#     seats * 20.0
-#   else
-#     100 + (seats - 5) * 15.0
-#   end
-# end

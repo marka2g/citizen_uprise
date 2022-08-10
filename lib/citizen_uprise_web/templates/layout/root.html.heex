@@ -5,10 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="csrf-token" content={csrf_token_value()}>
-    <%= live_title_tag assigns[:page_title] || "CitizenUprise-PowerToTheVoter!" %>
+    <%= live_title_tag assigns[:page_title] || "Citizen Uprise - PowerToTheVoter!" %>
     <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
     <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
-    <title>CitizenUprise-PowerToTheVoter!</title>
   </head>
   <body class="h-full">
     <div class="min-h-full">
@@ -29,7 +28,7 @@
             </div>
             <div class="-mr-2 flex items-center sm:hidden">
               <!-- Mobile menu button -->
-              <button type="button" class="bg-white inline-flex items-center justify-center p-2 rounded-md text-zinc-400 hover:text-zinc-400 hover:bg-zinc-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" aria-controls="mobile-menu" aria-expanded="false">
+              <button type="button" class="bg-white inline-flex items-center justify-center p-2 rounded-md text-zinc-400 hover:text-zinc-400 hover:bg-zinc-100 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-blue-500" aria-controls="mobile-menu" aria-expanded="false">
                 <span class="sr-only">Open main menu</span>
                 <!--
                   Heroicon name: outline/menu
@@ -65,7 +64,7 @@
         </div>
       </nav>
 
-      <div class="py-10">
+      <div class="py-4">
         <main>
           <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="px-4 py-8 sm:px-0">

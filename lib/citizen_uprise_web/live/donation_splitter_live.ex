@@ -2,10 +2,10 @@ defmodule CitizenUpriseWeb.DonationSplitterLive do
   use CitizenUpriseWeb, :live_view
 
   alias CitizenUprise.Candidates
-  # alias CitizenUprise.Donations
+  alias CitizenUprise.Donations
   # import Number.Currency
 
-  def mount(_params, _session, socket) do
+  def mount(_params, session, socket) do
     socket =
       assign(socket,
         matches: [],
@@ -16,12 +16,35 @@ defmodule CitizenUpriseWeb.DonationSplitterLive do
         donations: [],
         loading: false
       )
-    {:ok, socket}
+    {:ok, assign_current_user(socket, session)}
   end
 
-  def handle_event("update-donation", %{"partial_donation" => partial_donation}, socket) do
-    IO.inspect(partial_donation, label: "partial_donation")
-    {:noreply, assign(socket, partial_donation: partial_donation)}
+  def handle_event("donate", _, socket) do
+    IO.inspect(socket.assigns.current_user, label: "current_user")
+    IO.inspect(socket.assigns.donations, label: "donations")
+
+    user = socket.assigns.current_user
+    donations = socket.assigns.donations
+
+    for donation <- donations  do
+      [candidate_id, amount] = Tuple.to_list(donation)
+      attrs =
+        %{
+          candidate_id: candidate_id,
+          amount: amount,
+          user_id: user.id
+        }
+      Donations.create_donation(attrs)
+    end
+    {:noreply, socket}
+  end
+
+  def handle_event("add-donation", %{"donation" => donation, "candidate_id" => candidate_id}, socket) do
+    donation = donation |> String.to_float
+    total_donation = (donation + socket.assigns.total_donation)
+    donations = List.insert_at(socket.assigns.donations, 0, {candidate_id, donation})
+
+    {:noreply, assign(socket, donation: donation, total_donation: total_donation, donations: donations)}
   end
 
   def handle_event("suggest-candidate", %{"candidate" => prefix}, socket) do
@@ -55,7 +78,6 @@ defmodule CitizenUpriseWeb.DonationSplitterLive do
           |> assign(candidates: [], loading: false)
         {:noreply, socket}
       candidates ->
-        # candidate = Enum.at(candidates, 0)
         socket =
           update(
             socket,
