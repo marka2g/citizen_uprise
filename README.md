@@ -2,6 +2,16 @@
 
 ![CitizenUprise - Donation Splitter](https://media.giphy.com/media/qLtXfJmPqADHsYMc2F/giphy.gif)
 
+### To Use
+> 1. $`mix phx.new citizen_uprise --live`
+> 2. set up `dev.ex` and `test.ex` db creds
+> 3. $`mix ecto.create`
+> 4. $`cd citizen_uprise` 
+> 5. $`iex -S mix phx.server`
+> 6. Navigate to `localhost:4000`
+> 7. Register
+> 8. Navigate to `localhost:4000/donate`
+
 ### ToDo
 - [X] add `donations` 
 - [ ] fix form input and button behavior
@@ -11,13 +21,6 @@
 ### Contexts
 > $ `mix phx.gen.context Candidates Candidate candidates last_name:string first_name:string fec_id:string fec_link:string state:string zip:string party_abbrev:string race_status:string`
 > $ `mix phx.gen.context Donations Donation donations amount:float candidate_id:string user_id:string`
-
-### Setup/Install Steps
-> 1. $`mix phx.new citizen_uprise --live`
-> 2. set up `dev.ex` and `test.ex` db creds
-> 3. $`mix ecto.create`
-> 4. $`cd citizen_uprise` 
-> 5. $`mix phx.gen.auth `
 
 <><><><><><><><><><><><><>
 

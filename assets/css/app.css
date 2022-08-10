@@ -37,12 +37,12 @@ nav ul {
 nav ul li { @apply mx-2 text-lg text-gray-700; }
 nav ul li a:hover { @apply underline; }
 
-#donate button {
+/* #donate button {
   @apply h-10 px-4 py-2 bg-transparent border border-zinc-400 border-l-0 rounded-r-md transition ease-in-out duration-150 outline-none;
-}
-#donate button img {
+} */
+/* #donate button img {
   @apply h-4 w-4;
-}
+} */
 
 /* auth */
 .auth {
