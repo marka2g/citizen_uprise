@@ -15,7 +15,8 @@
 ### ToDo
 - [X] add `donations` 
 - [ ] fix form input and button behavior
-- [ ] add container around search and candidate list
+- [X] add `flex-box` for layout
+  - [X] ~~add container around search and candidate list~~
 - [ ] ensure site is [wcag compliant](https://www.w3.org/WAI/standards-guidelines/wcag/glance/). review the [checklist here](https://www.a11yproject.com/checklist/)
 - [ ] prevent `suggest-candidate` from dispaying existing `socket.assigns.candidates` in the `datalist`
 
