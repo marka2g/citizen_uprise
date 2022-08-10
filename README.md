@@ -1,15 +1,16 @@
 # CitizenUprise
 
-### To Add
-- [X] tailwindcss
-  - maybe `dartcss` if its not a total p.i.t.a 
-- [X] `mix phx.gen.auth` with live_view
-  - roles - `admin`, `breeder`, `user` -> see [this blog post](https://www.leanpanda.com/blog/authentication-and-authorisation-in-phoenix-liveview/#step-3-update-the-live-views-generated-with-phx-gen-live-to-perform-the-checks-ensuring-a-user-can-really-access-a-given-route) that uses `ecto.enum` for `roles`
-- [ ] drag&drop -> [tutorial](https://www.youtube.com/watch?v=U1EKT7WT_Ic)
+![CitizenUprise - Donation Splitter](https://media.giphy.com/media/qLtXfJmPqADHsYMc2F/giphy.gif)
 
+### ToDo
+- [X] add `donations` 
+- [ ] fix form input and button behavior
+- [ ] add container around search and candidate list
+- [ ] prevent `suggest-candidate` from dispaying existing `socket.assigns.candidates` in the `datalist`
 
 ### Contexts
 > $ `mix phx.gen.context Candidates Candidate candidates last_name:string first_name:string fec_id:string fec_link:string state:string zip:string party_abbrev:string race_status:string`
+> $ `mix phx.gen.context Donations Donation donations amount:float candidate_id:string user_id:string`
 
 ### Setup/Install Steps
 > 1. $`mix phx.new citizen_uprise --live`
@@ -17,7 +18,6 @@
 > 3. $`mix ecto.create`
 > 4. $`cd citizen_uprise` 
 > 5. $`mix phx.gen.auth `
-
 
 <><><><><><><><><><><><><>
 

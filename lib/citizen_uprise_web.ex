@@ -47,6 +47,8 @@ defmodule CitizenUpriseWeb do
       use Phoenix.LiveView,
         layout: {CitizenUpriseWeb.LayoutView, "live.html"}
 
+      import CitizenUpriseWeb.LiveHelpers
+
       unquote(view_helpers())
     end
   end

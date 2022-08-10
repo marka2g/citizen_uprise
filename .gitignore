@@ -1,3 +1,5 @@
+**/.DS_Store
+
 # The directory Mix will write compiled artifacts to.
 /_build/
 
@@ -35,3 +37,7 @@ npm-debug.log
 /assets/node_modules/
 
 scratch.ex
+
+/lib/citizen_uprise_web/templates/layout/root_start.html.heex
+/lib/citizen_uprise_web/templates/layout/root_with_comments.html.heex
+/lib/citizen_uprise_web/live/donation_splitter_live_wo_tailwind.ex
