@@ -20,8 +20,9 @@
 - [ ] ensure site is [wcag compliant](https://www.w3.org/WAI/standards-guidelines/wcag/glance/). review the [checklist here](https://www.a11yproject.com/checklist/)
 - [ ] prevent `suggest-candidate` from dispaying existing `socket.assigns.candidates` in the `datalist`
 
-### Contexts
+### Context Generation
 > $ `mix phx.gen.context Candidates Candidate candidates last_name:string first_name:string fec_id:string fec_link:string state:string zip:string party_abbrev:string race_status:string`
+> 
 > $ `mix phx.gen.context Donations Donation donations amount:float candidate_id:string user_id:string`
 
 <><><><><><><><><><><><><>
