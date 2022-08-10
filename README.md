@@ -4,13 +4,14 @@
 
 ### To Use
 > 1. $`git clone git@github.com:marka2g/citizen_uprise.git`
-> 2. set up `dev.ex` and `test.ex` db creds
-> 3. $`mix ecto.create`
-> 4. $`cd citizen_uprise` 
-> 5. $`iex -S mix phx.server`
-> 6. Navigate to `localhost:4000`
-> 7. Register
-> 8. Navigate to `localhost:4000/donate`
+> 2. $`cd citizen_uprise` 
+> 3. set up `dev.ex` and `test.ex` db creds
+> 4. $`mix ecto.create`
+> 5. $`mix run priv/repo/seeds.exs`
+> 6. $`iex -S mix phx.server`
+> 7. Navigate to `localhost:4000`
+> 8. Register
+> 9. Navigate to `localhost:4000/donate`
 
 ### ToDo
 - [X] add `donations` 
