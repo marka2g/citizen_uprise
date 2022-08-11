@@ -18,8 +18,10 @@
 - [ ] fix form input and button behavior
 - [X] add `flex-box` for layout
   - [X] ~~add container around search and candidate list~~
-- [ ] ensure site is [wcag compliant](https://www.w3.org/WAI/standards-guidelines/wcag/glance/). review the [checklist here](https://www.a11yproject.com/checklist/)
+- [ ] add unique to `candidate.fec_id` - seeds can double, breaking `Candidates.search_by_fec_id(fec_id)`
+  - [ ] write a test for the `handle_info(:run_candidate_search)` calling it
 - [ ] prevent `suggest-candidate` from dispaying existing `socket.assigns.candidates` in the `datalist`
+- [ ] ensure site is [wcag compliant](https://www.w3.org/WAI/standards-guidelines/wcag/glance/). review the [checklist here](https://www.a11yproject.com/checklist/)
 
 ### Context Generation
 > $ `mix phx.gen.context Candidates Candidate candidates last_name:string first_name:string fec_id:string fec_link:string state:string zip:string party_abbrev:string race_status:string`

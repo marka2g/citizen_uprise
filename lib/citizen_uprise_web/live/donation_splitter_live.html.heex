@@ -1,7 +1,7 @@
 <h1 class="text-zinc-600">Split Up Your Donation</h1>
 
 <div class="flex flex-row flex-wrap max-w-7xl mx-auto sm:px-2 lg:px-4">
-  <div class="basis-4/6">
+  <div class="basis-3/5">
     <div class="bg-zinc-200 sm:rounded-md md:rounded-md p-4">
       <form id="candidate-search"
                 phx-submit="candidate-search"
@@ -41,60 +41,64 @@
       <ul role="list" class="divide-y divide-zinc-200">
         <%= for candidate <- @candidates do %>
           <li>
-            <div class="flex hover:bg-zinc-50 items-center px-8 py-8 sm:px-4">
-              <div class="min-w-0 flex-1 flex items-center">
-                <div class="flex-shrink-0 object-scale-down h-12 w-12 ">
+            <div class="flex flex-row hover:bg-zinc-50 items-center px-8 py-8 sm:px-4">
+              <div class="basis-5/12 min-w-0 items-center">
+                <div class="flex-shrink-0 object-scale-down h-12 w-12 mr-4">
                   <img src={party_svg(candidate.party_abbrev)}>
                 </div>
-                <div class="min-w-0 flex-1 px-2 md:grid md:grid-cols-2 md:gap-2">
-                  <div>
-                    <p class="text-sm font-medium text-blue-600 truncate"><strong alt="office"><%= candidate.office %></strong> | <span alt="name"><%= candidate.first_name %> <%= candidate.last_name %></span></p>
-                    <p class="mt-2 flex items-center text-sm text-zinc-500">
-                      <strong alt="state"><%= candidate.state %></strong> | <span alt="F.E.C. Number"><%= candidate.fec_id %></span>
-                    </p>
-                  </div>
-                  <div class="mt-1 flex rounded-md shadow-sm">
-                    <form id="donation" phx-submit="add-donation" phx-debounce="250">
-                      <input type="hidden" name="candidate_id" value={candidate.id} />
-                      <label for="donation" class="block text-sm font-medium text-zinc-700">Donation Amount</label>
-                      <div class="flex">
-                        <div class="mt-1 relative rounded-md shadow-sm">
-                          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <span class="text-zinc-500 sm:text-sm"> $ </span>
-                          </div>
-                          <input type="text" value="" name="donation" id="donation" class="focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-blue-500 focus:border-blue-500 block w-full pl-7 pr-12 sm:text-sm border-zinc-300 rounded-md" placeholder="0.00" aria-describedby="donation-currency">
-                          <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                            <span class="text-zinc-500 sm:text-sm" id="donation-currency"> USD </span>
-                          </div>
+                <div class="mr-4">
+                  <p class="text-sm font-medium text-blue-600 truncate"><strong alt="office"><%= candidate.office %></strong> | <span alt="name"><%= candidate.first_name %> <%= candidate.last_name %></span></p>
+                  <p class="mt-2 flex items-center text-sm text-zinc-500">
+                    <strong alt="state"><%= candidate.state %></strong> | <span alt="fec_number"><%= candidate.fec_id %></span>
+                  </p>
+                </div>
+              </div>
+              <div class="basis-7/12 rounded-md shadow-sm flex">
+                <div class="basis-2/3">
+                  <form id="donation" phx-submit="add-donation" phx-debounce="250">
+                    <input type="hidden" name="candidate_id" value={candidate.id} />
+                    <label for="donation" class="block text-sm font-medium text-zinc-700">Donation Amount</label>
+                    <div class="flex">
+                      <div class="mt-1 relative rounded-md shadow-sm">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <span class="text-zinc-500 sm:text-sm"> $ </span>
                         </div>
-                        <button type="submit" class="ml-2 relative inline-flex items-center space-x-2 px-5 py-2 border border-zinc-300 font-medium rounded-md text-zinc-800 bg-zinc-50 hover:bg-zinc-100 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-blue-500 focus:border-blue-500">
-                          <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" class="h-5 w-5 text-zinc-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 591.6 591.6" aria-hidden="true" style="enable-background:new 0 0 591.6 591.6;" xml:space="preserve" >
-                            <path d="M581.4,244.8H346.8V10.2c0-5.712-4.488-10.2-10.2-10.2H255c-5.712,0-10.2,4.488-10.2,10.2v234.6H10.2
-                            C4.488,244.8,0,249.288,0,255v81.6c0,5.712,4.488,10.2,10.2,10.2h234.6v234.6c0,5.712,4.488,10.2,10.2,10.2h81.6
-                            c5.712,0,10.2-4.488,10.2-10.2V346.8h234.6c5.712,0,10.2-4.488,10.2-10.2V255C591.6,249.288,587.112,244.8,581.4,244.8z
-                            M571.2,326.4H336.6c-5.712,0-10.2,4.488-10.2,10.2v234.6h-61.2V336.6c0-5.712-4.488-10.2-10.2-10.2H20.4v-61.2H255
-                            c5.712,0,10.2-4.488,10.2-10.2V20.4h61.2V255c0,5.712,4.488,10.2,10.2,10.2h234.6V326.4z"/>
-                            <path d="M303.96,33.66h-20.4c-2.856,0-5.1,2.244-5.1,5.1v204c0,2.856,2.244,5.1,5.1,5.1s5.1-2.244,5.1-5.1V43.86h15.3
-                            c2.856,0,5.1-2.244,5.1-5.1S306.816,33.66,303.96,33.66z"/>
-                          </svg>
-                        </button>
+                        <input type="text" value="" name="donation" id="donation" class="focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-blue-500 focus:border-blue-500 block w-full pl-7 pr-12 sm:text-sm border-zinc-300 rounded-md" placeholder="0.00" aria-describedby="donation-currency">
+                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                          <span class="text-zinc-500 sm:text-sm" id="donation-currency"> USD </span>
+                        </div>
                       </div>
-                    </form>
-                  </div>
+                      <button type="submit" class="ml-2 relative inline-flex items-center space-x-2 px-5 py-2 border border-zinc-300 font-medium rounded-md text-zinc-800 bg-zinc-50 hover:bg-zinc-100 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-blue-500 focus:border-blue-500">
+                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" class="h-5 w-5 text-zinc-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 591.6 591.6" aria-hidden="true" style="enable-background:new 0 0 591.6 591.6;" xml:space="preserve" >
+                          <path d="M581.4,244.8H346.8V10.2c0-5.712-4.488-10.2-10.2-10.2H255c-5.712,0-10.2,4.488-10.2,10.2v234.6H10.2
+                          C4.488,244.8,0,249.288,0,255v81.6c0,5.712,4.488,10.2,10.2,10.2h234.6v234.6c0,5.712,4.488,10.2,10.2,10.2h81.6
+                          c5.712,0,10.2-4.488,10.2-10.2V346.8h234.6c5.712,0,10.2-4.488,10.2-10.2V255C591.6,249.288,587.112,244.8,581.4,244.8z
+                          M571.2,326.4H336.6c-5.712,0-10.2,4.488-10.2,10.2v234.6h-61.2V336.6c0-5.712-4.488-10.2-10.2-10.2H20.4v-61.2H255
+                          c5.712,0,10.2-4.488,10.2-10.2V20.4h61.2V255c0,5.712,4.488,10.2,10.2,10.2h234.6V326.4z"/>
+                          <path d="M303.96,33.66h-20.4c-2.856,0-5.1,2.244-5.1,5.1v204c0,2.856,2.244,5.1,5.1,5.1s5.1-2.244,5.1-5.1V43.86h15.3
+                          c2.856,0,5.1-2.244,5.1-5.1S306.816,33.66,303.96,33.66z"/>
+                        </svg>
+                      </button>
+                    </div>
+                  </form>
+                </div>
+                <div class="pl-20 basis-1/5">
+                  <button phx-click="remove-candidate" phx-value-id={candidate.id} type="button" class="text-zinc-400 hover:text-zinc-500">
+                    <span class="sr-only">Close</span>
+                    <!-- Heroicon name: outline/x -->
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
                 </div>
               </div>
             </div>
           </li>
         <% end %>
-        <%= if @total_donation > 0.0 do %>
-          <div class="items-center px-8 py-8">
-            <button type="button" phx-click="donate" phx-disable-with="Processing..." class="items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Donate!</button>
-          </div>
-        <% end %>
       </ul>
     </div>
   </div>
-  <div class="basis-1/4 bg-zinc-200 sm:rounded-md md:rounded-md text-lg font-medium text-zinc-700 items-center ml-4 pt-4 pl-4 pr-2">
+  <div id="total-donation" class="basis-1/3 bg-zinc-200 sm:rounded-md md:rounded-md text-lg font-medium text-zinc-700 items-center ml-4 pt-4 pl-4 pr-4">
     <div>
       Total Donation
       <hr class="border-b border-blue-400">
@@ -105,8 +109,25 @@
         Itemized Donations
         <hr class="border-b border-blue-400">
         <%= for donation <- @donations do %>
-          <p>$<%= elem(donation, 2) %> | <%= elem(donation, 1) %></p>
+          <p>
+            $<%= elem(donation, 2) %> | <%= elem(donation, 1) %>
+            <span class="pl-20">
+              <button type="button" phx-click="remove-donation" phx-value-candidate-id={elem(donation, 0)} type="button" class="text-zinc-400 hover:text-zinc-500">
+                <span class="sr-only">Close</span>
+                <!-- Heroicon name: outline/x -->
+                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </span>
+          </p>
         <% end %>
+      </div>
+    <% end %>
+
+    <%= if @total_donation > 0.0 do %>
+      <div class="items-center px-8 py-8">
+        <button type="button" phx-click="donate" phx-disable-with="Processing..." class="items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Donate!</button>
       </div>
     <% end %>
   </div>
