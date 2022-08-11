@@ -1,3 +1,4 @@
+alias CitizenUprise.Repo
 alias CitizenUprise.Candidates
 alias CitizenUprise.Candidates.Candidate
 alias CitizenUprise.Donations

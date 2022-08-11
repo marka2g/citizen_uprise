@@ -22,9 +22,24 @@ defmodule CitizenUprise.Candidates do
     |> Enum.map(fn cnd -> "#{cnd.first_name} #{cnd.last_name} | #{cnd.fec_id}" end)
   end
 
+  # theres gotta be a better way
   def search_by_fec_id(fec_id) do
     list_candidates()
     |> Enum.filter(&(&1.fec_id == fec_id))
+    |> Enum.map(&%{fec_id: &1.fec_id,
+          fec_link: &1.fec_link,
+          first_name: &1.first_name,
+          id: &1.id,
+          inserted_at: &1.inserted_at,
+          last_name: &1.last_name,
+          office: &1.office,
+          party_abbrev: &1.party_abbrev,
+          race_status: &1.race_status,
+          state: &1.state,
+          updated_at: &1.updated_at,
+          zip: &1.zip
+        }
+      )
   end
 
   @doc """
@@ -38,6 +53,29 @@ defmodule CitizenUprise.Candidates do
   """
   def list_candidates do
     Repo.all(Candidate)
+  end
+
+  # needs refactor
+  def get_candidate_map(id) do
+    case Repo.get(Candidate, id) do
+      nil ->
+        %{}
+      candidate ->
+        %{
+          fec_id: candidate.fec_id,
+          fec_link: candidate.fec_link,
+          first_name: candidate.first_name,
+          id: candidate.id,
+          inserted_at: candidate.inserted_at,
+          last_name: candidate.last_name,
+          office: candidate.office,
+          party_abbrev: candidate.party_abbrev,
+          race_status: candidate.race_status,
+          state: candidate.state,
+          updated_at: candidate.updated_at,
+          zip: candidate.zip
+        }
+    end
   end
 
   @doc """

@@ -19,36 +19,6 @@ defmodule CitizenUpriseWeb.DonationSplitterLive do
     {:ok, assign_current_user(socket, session)}
   end
 
-  def handle_event("donate", _, socket) do
-    IO.inspect(socket.assigns.current_user, label: "current_user")
-    IO.inspect(socket.assigns.donations, label: "donations")
-
-    user = socket.assigns.current_user
-    donations = socket.assigns.donations
-
-    for donation <- donations  do
-      [candidate_id, _, amount] = Tuple.to_list(donation)
-      attrs =
-        %{
-          candidate_id: candidate_id,
-          amount: amount,
-          user_id: user.id
-        }
-      Donations.create_donation(attrs)
-    end
-    {:noreply, socket}
-  end
-
-  def handle_event("add-donation", %{"donation" => donation, "candidate_id" => candidate_id}, socket) do
-    donation = donation |> String.to_float
-    total_donation = (donation + socket.assigns.total_donation)
-
-    candidate = Candidates.get_candidate!(candidate_id)
-    donations = List.insert_at(socket.assigns.donations, 0, {candidate_id, candidate.last_name, donation})
-
-    {:noreply, assign(socket, donation: donation, total_donation: total_donation, donations: donations)}
-  end
-
   def handle_event("suggest-candidate", %{"candidate" => prefix}, socket) do
     socket = assign(socket, matches: Candidates.suggest(prefix))
     {:noreply, socket}
@@ -71,6 +41,71 @@ defmodule CitizenUpriseWeb.DonationSplitterLive do
     {:noreply, socket}
   end
 
+  # @todo - also remove any donations for now/ is total_donations still needed?
+  def handle_event("remove-candidate", %{"id" => id}, socket) do
+    id = String.to_integer(id)
+    candidate = Candidates.get_candidate_map(id)
+    candidates = List.delete(socket.assigns.candidates, candidate)
+
+    # donation = Enum.find(socket.assigns.donations, fn {candidate_id, _ln, _amt} -> candidate_id == candidate.id end)
+    # donations = List.delete(socket.assigns.donations, donation)
+
+    socket =
+      assign(socket,
+        candidates: candidates#,
+        # donations: donations,
+        # total_donation: total_donation(donations)
+      )
+
+    {:noreply, socket}
+  end
+
+  def handle_event("add-donation", %{"donation" => donation, "candidate_id" => candidate_id}, socket) do
+    donation = donation |> String.to_float
+
+    candidate = Candidates.get_candidate!(candidate_id)
+    donations = List.insert_at(socket.assigns.donations, 0, {candidate_id, candidate.last_name, donation})
+
+    socket =
+      assign(socket,
+      donation: donation,
+      donations: donations,
+      total_donation: total_donation(donations)
+    )
+    {:noreply, socket}
+  end
+
+  def handle_event("remove-donation", %{"candidate-id" => candidate_id}, socket) do
+
+    donation = Enum.find(socket.assigns.donations, fn {c_id, _ln, _amt} -> c_id == candidate_id end)
+    donations = List.delete(socket.assigns.donations, donation)
+
+    socket =
+      assign(socket,
+        donations: donations,
+        total_donation: total_donation(donations)
+      )
+    {:noreply, socket}
+  end
+
+  def handle_event("donate", _, socket) do
+    user = socket.assigns.current_user
+    donations = socket.assigns.donations
+
+    for donation <- donations  do
+      [candidate_id, _, amount] = Tuple.to_list(donation)
+      attrs =
+        %{
+          candidate_id: candidate_id,
+          amount: amount,
+          user_id: user.id
+        }
+      Donations.create_donation(attrs)
+    end
+
+    {:noreply, socket}
+  end
+
   def handle_info({:run_candidate_search, fec_id}, socket) do
     case Candidates.search_by_fec_id(fec_id) do
       [] ->
@@ -88,6 +123,10 @@ defmodule CitizenUpriseWeb.DonationSplitterLive do
           )
         {:noreply, assign(socket, candidate_count: Enum.count(socket.assigns.candidates), loading: false)}
     end
+  end
+
+  defp total_donation(donations) do
+    Enum.map(donations, fn {_, _, donation} -> donation end) |> Enum.sum()
   end
 
   defp party_svg(party_abbrev) do
