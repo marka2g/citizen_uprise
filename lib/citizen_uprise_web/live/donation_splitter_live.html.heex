@@ -99,36 +99,38 @@
     </div>
   </div>
   <div id="total-donation" class="basis-1/3 bg-zinc-200 sm:rounded-md md:rounded-md text-lg font-medium text-zinc-700 items-center ml-4 pt-4 pl-4 pr-4">
-    <div>
-      Total Donation
-      <hr class="border-b border-blue-400">
-      <p>$<%= @total_donation %></p>
-    </div>
-    <%= if Enum.any?(@donations) do %>
+    <form phx-click="donate">
       <div>
-        Itemized Donations
+        Total Donation
         <hr class="border-b border-blue-400">
-        <%= for donation <- @donations do %>
-          <p>
-            $<%= elem(donation, 2) %> | <%= elem(donation, 1) %>
-            <span class="pl-20">
-              <button type="button" phx-click="remove-donation" phx-value-candidate-id={elem(donation, 0)} type="button" class="text-zinc-400 hover:text-zinc-500">
-                <span class="sr-only">Close</span>
-                <!-- Heroicon name: outline/x -->
-                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </span>
-          </p>
-        <% end %>
+        <p>$<%= @total_donation %></p>
       </div>
-    <% end %>
+      <%= if Enum.any?(@donations) do %>
+        <div>
+          Itemized Donations
+          <hr class="border-b border-blue-400">
+          <%= for donation <- @donations do %>
+            <p>
+              $<%= elem(donation, 2) %> | <%= elem(donation, 1) %>
+              <span class="pl-20">
+                <button type="button" phx-click="remove-donation" phx-value-candidate-id={elem(donation, 0)} type="button" class="text-zinc-400 hover:text-zinc-500">
+                  <span class="sr-only">Close</span>
+                  <!-- Heroicon name: outline/x -->
+                  <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </span>
+            </p>
+          <% end %>
+        </div>
+      <% end %>
 
-    <%= if @total_donation > 0.0 do %>
-      <div class="items-center px-8 py-8">
-        <button type="button" phx-click="donate" phx-disable-with="Processing..." class="items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Donate!</button>
-      </div>
-    <% end %>
+      <%= if @total_donation > 0.0 do %>
+        <div class="items-center px-8 py-8">
+          <button type="submit" phx-disable-with="Processing..." class="items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Donate!</button>
+        </div>
+      <% end %>
+    </form>
   </div>
 </div>
