@@ -1,98 +1,113 @@
 <h1 class="text-zinc-600">Split Up Your Donation</h1>
-<div class="flex flex-row flex-wrap max-w-3xl mx-auto sm:px-2 lg:px-4">
-  <div class="basis-4/6 bg-zinc-200 sm:rounded-md md:rounded-md p-4">
-    <form id="candidate-search"
-              phx-submit="candidate-search"
-              phx-change="suggest-candidate"
-              autocomplete="off">
-      <label for="candidate-search" class="block text-lg font-medium text-zinc-700">Search Candidates</label>
-      <div class="mt-1 flex rounded-md shadow-sm">
-        <div class="relative flex items-stretch flex-grow focus-within:z-10">
-          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <svg class="h-5 w-5 text-zinc-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
-            </svg>
-          </div>
-          <input class="focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-blue-500 focus:border-blue-500 block w-full rounded-none rounded-l-md pl-10 sm:text-sm border-zinc-300"
-                  type="candidate" name="candidate"
-                  value={@candidate} placeholder="Candidate Search"
-                  autocomplete="off" list="matches"
-                  phx-debounce="250" readonly={@loading}
-                  placeholder="Jane Smith">
-        </div>
-        <button type="submit" class="ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-zinc-300 text-sm font-medium rounded-r-md text-zinc-700 bg-zinc-50 hover:bg-zinc-100 focus:outline-none focus:ring-1  focus:ring-offset-1 focus:ring-blue-500">
-          <svg class="h-5 w-5 text-zinc-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56.966 56.966" fill="currentColor" aria-hidden="true" style="enable-background:new 0 0 56.966 56.966;" xml:space="preserve" >
-            <path d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z" fill="#4a5568"/>
-          </svg>
-        </button>
-      </div>
-    </form>
-    <datalist id="matches">
-      <%= for match <- @matches do %>
-        <option value={match}><%= match %></option>
-      <% end %>
-    </datalist>
-  </div>
-  <div class="basis-1/12"></div>
-  <div class="basis-1/4 bg-zinc-200 sm:rounded-md md:rounded-md text-lg font-medium text-zinc-700 items-center py-4 pl-4 pr-2">
-    Total Donation
-    <p><%= @total_donation %></p>
-  </div>
 
-  <div class="basis-full bg-white shadow overflow-hidden mt-4 sm:rounded-md max-w-3xl mx-auto px-4 sm:px-2 lg:px-4">
-    <ul role="list" class="divide-y divide-zinc-200">
-      <%= for candidate <- @candidates do %>
-        <li>
-          <div class="flex hover:bg-zinc-50 items-center px-8 py-8 sm:px-4">
-            <div class="min-w-0 flex-1 flex items-center">
-              <div class="flex-shrink-0 object-scale-down h-12 w-12 ">
-                <img src={party_svg(candidate.party_abbrev)}>
-              </div>
-              <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
-                <div>
-                  <p class="text-sm font-medium text-blue-600 truncate"><strong><%= candidate.office %></strong> | <%= candidate.first_name %> <%= candidate.last_name %></p>
-                  <p class="mt-2 flex items-center text-sm text-zinc-500">
-                    <strong><strong><%= candidate.state %></strong> | <%= candidate.fec_id %></strong>
-                  </p>
+<div class="flex flex-row flex-wrap max-w-7xl mx-auto sm:px-2 lg:px-4">
+  <div class="basis-4/6">
+    <div class="bg-zinc-200 sm:rounded-md md:rounded-md p-4">
+      <form id="candidate-search"
+                phx-submit="candidate-search"
+                phx-change="suggest-candidate"
+                autocomplete="off">
+        <label for="candidate-search" class="block text-lg font-medium text-zinc-700">Search Candidates</label>
+        <div class="mt-1 flex rounded-md shadow-sm">
+          <div class="relative flex items-stretch flex-grow focus-within:z-10">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <svg class="h-5 w-5 text-zinc-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
+              </svg>
+            </div>
+            <input class="focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-blue-500 focus:border-blue-500 block w-full rounded-none rounded-l-md pl-10 sm:text-sm border-zinc-300"
+                    type="candidate" name="candidate"
+                    value={@candidate} placeholder="Candidate Search"
+                    autocomplete="off" list="matches"
+                    phx-debounce="250" readonly={@loading}
+                    placeholder="Jane Smith" aria-describedby="candidate-search">
+          </div>
+          <button type="submit" class="ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-zinc-300 text-sm font-medium rounded-r-md text-zinc-700 bg-zinc-50 hover:bg-zinc-100 focus:outline-none focus:ring-1  focus:ring-offset-1 focus:ring-blue-500">
+            <svg class="h-5 w-5 text-zinc-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56.966 56.966" fill="currentColor" aria-hidden="true" style="enable-background:new 0 0 56.966 56.966;" xml:space="preserve" >
+              <path d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z" fill="#4a5568"/>
+            </svg>
+          </button>
+        </div>
+      </form>
+
+      <datalist id="matches">
+        <%= for match <- @matches do %>
+          <option value={match}><%= match %></option>
+        <% end %>
+      </datalist>
+    </div>
+    
+    <div class="bg-white shadow overflow-hidden mt-4 sm:rounded-md max-w-5xl mx-auto md:px-2 sm:px-2 lg:px-4">
+      <ul role="list" class="divide-y divide-zinc-200">
+        <%= for candidate <- @candidates do %>
+          <li>
+            <div class="flex hover:bg-zinc-50 items-center px-8 py-8 sm:px-4">
+              <div class="min-w-0 flex-1 flex items-center">
+                <div class="flex-shrink-0 object-scale-down h-12 w-12 ">
+                  <img src={party_svg(candidate.party_abbrev)}>
                 </div>
-                <div class="mt-1 flex rounded-md shadow-sm">
-                  <form id="donation" phx-submit="add-donation" phx-debounce="250">
-                    <input type="hidden" name="candidate_id" value={candidate.id} />
-                    <label for="donation" class="block text-sm font-medium text-zinc-700">Donation Amount</label>
-                    <div class="flex">
-                      <div class="mt-1 relative rounded-md shadow-sm">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                          <span class="text-zinc-500 sm:text-sm"> $ </span>
+                <div class="min-w-0 flex-1 px-2 md:grid md:grid-cols-2 md:gap-2">
+                  <div>
+                    <p class="text-sm font-medium text-blue-600 truncate"><strong alt="office"><%= candidate.office %></strong> | <span alt="name"><%= candidate.first_name %> <%= candidate.last_name %></span></p>
+                    <p class="mt-2 flex items-center text-sm text-zinc-500">
+                      <strong alt="state"><%= candidate.state %></strong> | <span alt="F.E.C. Number"><%= candidate.fec_id %></span>
+                    </p>
+                  </div>
+                  <div class="mt-1 flex rounded-md shadow-sm">
+                    <form id="donation" phx-submit="add-donation" phx-debounce="250">
+                      <input type="hidden" name="candidate_id" value={candidate.id} />
+                      <label for="donation" class="block text-sm font-medium text-zinc-700">Donation Amount</label>
+                      <div class="flex">
+                        <div class="mt-1 relative rounded-md shadow-sm">
+                          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <span class="text-zinc-500 sm:text-sm"> $ </span>
+                          </div>
+                          <input type="text" value="" name="donation" id="donation" class="focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-blue-500 focus:border-blue-500 block w-full pl-7 pr-12 sm:text-sm border-zinc-300 rounded-md" placeholder="0.00" aria-describedby="donation-currency">
+                          <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                            <span class="text-zinc-500 sm:text-sm" id="donation-currency"> USD </span>
+                          </div>
                         </div>
-                        <input type="text" value="" name="donation" id="donation" class="focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-blue-500 focus:border-blue-500 block w-full pl-7 pr-12 sm:text-sm border-zinc-300 rounded-md" placeholder="0.00" aria-describedby="donation-currency">
-                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                          <span class="text-zinc-500 sm:text-sm" id="donation-currency"> USD </span>
-                        </div>
+                        <button type="submit" class="ml-2 relative inline-flex items-center space-x-2 px-5 py-2 border border-zinc-300 font-medium rounded-md text-zinc-800 bg-zinc-50 hover:bg-zinc-100 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-blue-500 focus:border-blue-500">
+                          <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" class="h-5 w-5 text-zinc-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 591.6 591.6" aria-hidden="true" style="enable-background:new 0 0 591.6 591.6;" xml:space="preserve" >
+                            <path d="M581.4,244.8H346.8V10.2c0-5.712-4.488-10.2-10.2-10.2H255c-5.712,0-10.2,4.488-10.2,10.2v234.6H10.2
+                            C4.488,244.8,0,249.288,0,255v81.6c0,5.712,4.488,10.2,10.2,10.2h234.6v234.6c0,5.712,4.488,10.2,10.2,10.2h81.6
+                            c5.712,0,10.2-4.488,10.2-10.2V346.8h234.6c5.712,0,10.2-4.488,10.2-10.2V255C591.6,249.288,587.112,244.8,581.4,244.8z
+                            M571.2,326.4H336.6c-5.712,0-10.2,4.488-10.2,10.2v234.6h-61.2V336.6c0-5.712-4.488-10.2-10.2-10.2H20.4v-61.2H255
+                            c5.712,0,10.2-4.488,10.2-10.2V20.4h61.2V255c0,5.712,4.488,10.2,10.2,10.2h234.6V326.4z"/>
+                            <path d="M303.96,33.66h-20.4c-2.856,0-5.1,2.244-5.1,5.1v204c0,2.856,2.244,5.1,5.1,5.1s5.1-2.244,5.1-5.1V43.86h15.3
+                            c2.856,0,5.1-2.244,5.1-5.1S306.816,33.66,303.96,33.66z"/>
+                          </svg>
+                        </button>
                       </div>
-                      <button type="submit" class="ml-2 relative inline-flex items-center space-x-2 px-5 py-2 border border-zinc-300 font-medium rounded-md text-zinc-800 bg-zinc-50 hover:bg-zinc-100 focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-blue-500 focus:border-blue-500">
-                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" class="h-5 w-5 text-zinc-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 591.6 591.6" aria-hidden="true" style="enable-background:new 0 0 591.6 591.6;" xml:space="preserve" >
-                          <path d="M581.4,244.8H346.8V10.2c0-5.712-4.488-10.2-10.2-10.2H255c-5.712,0-10.2,4.488-10.2,10.2v234.6H10.2
-                          C4.488,244.8,0,249.288,0,255v81.6c0,5.712,4.488,10.2,10.2,10.2h234.6v234.6c0,5.712,4.488,10.2,10.2,10.2h81.6
-                          c5.712,0,10.2-4.488,10.2-10.2V346.8h234.6c5.712,0,10.2-4.488,10.2-10.2V255C591.6,249.288,587.112,244.8,581.4,244.8z
-                          M571.2,326.4H336.6c-5.712,0-10.2,4.488-10.2,10.2v234.6h-61.2V336.6c0-5.712-4.488-10.2-10.2-10.2H20.4v-61.2H255
-                          c5.712,0,10.2-4.488,10.2-10.2V20.4h61.2V255c0,5.712,4.488,10.2,10.2,10.2h234.6V326.4z"/>
-                          <path d="M303.96,33.66h-20.4c-2.856,0-5.1,2.244-5.1,5.1v204c0,2.856,2.244,5.1,5.1,5.1s5.1-2.244,5.1-5.1V43.86h15.3
-                          c2.856,0,5.1-2.244,5.1-5.1S306.816,33.66,303.96,33.66z"/>
-                        </svg>
-                      </button>
-                    </div>
-                  </form>
+                    </form>
+                  </div>
                 </div>
               </div>
             </div>
+          </li>
+        <% end %>
+        <%= if @total_donation > 0.0 do %>
+          <div class="items-center px-8 py-8">
+            <button type="button" phx-click="donate" phx-disable-with="Processing..." class="items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Donate!</button>
           </div>
-        </li>
-      <% end %>
-      <%= if @total_donation > 0.0 do %>
-        <div class="items-center px-8 py-8">
-          <button type="button" phx-click="donate" phx-disable-with="Processing..." class="items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Donate!</button>
-        </div>
-      <% end %>
-    </ul>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <div class="basis-1/4 bg-zinc-200 sm:rounded-md md:rounded-md text-lg font-medium text-zinc-700 items-center ml-4 pt-4 pl-4 pr-2">
+    <div>
+      Total Donation
+      <hr class="border-b border-blue-400">
+      <p>$<%= @total_donation %></p>
+    </div>
+    <%= if Enum.any?(@donations) do %>
+      <div>
+        Itemized Donations
+        <hr class="border-b border-blue-400">
+        <%= for donation <- @donations do %>
+          <p>$<%= elem(donation, 2) %> | <%= elem(donation, 1) %></p>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </div>

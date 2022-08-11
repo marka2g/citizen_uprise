@@ -27,7 +27,7 @@ defmodule CitizenUpriseWeb.DonationSplitterLive do
     donations = socket.assigns.donations
 
     for donation <- donations  do
-      [candidate_id, amount] = Tuple.to_list(donation)
+      [candidate_id, _, amount] = Tuple.to_list(donation)
       attrs =
         %{
           candidate_id: candidate_id,
@@ -42,7 +42,9 @@ defmodule CitizenUpriseWeb.DonationSplitterLive do
   def handle_event("add-donation", %{"donation" => donation, "candidate_id" => candidate_id}, socket) do
     donation = donation |> String.to_float
     total_donation = (donation + socket.assigns.total_donation)
-    donations = List.insert_at(socket.assigns.donations, 0, {candidate_id, donation})
+
+    candidate = Candidates.get_candidate!(candidate_id)
+    donations = List.insert_at(socket.assigns.donations, 0, {candidate_id, candidate.last_name, donation})
 
     {:noreply, assign(socket, donation: donation, total_donation: total_donation, donations: donations)}
   end
