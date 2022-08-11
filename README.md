@@ -1,6 +1,6 @@
 # CitizenUprise
 
-![CitizenUprise - Donation Splitter](https://media.giphy.com/media/aJbU9gyYmdAVIPr3B0/giphy.gif)
+![CitizenUprise - Donation Splitter](https://media.giphy.com/media/i9VPX5X6XnmHiY9NZc/giphy.gif)
 
 ### To Use
 > 1. $`git clone git@github.com:marka2g/citizen_uprise.git`
