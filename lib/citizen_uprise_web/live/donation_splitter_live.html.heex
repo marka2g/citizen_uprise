@@ -103,16 +103,21 @@
       <div>
         Total Donation
         <hr class="border-b border-blue-400">
-        <p>$<%= @total_donation %></p>
+        <p class="mt-2">$<%= @total_donation %></p>
       </div>
       <%= if Enum.any?(@donations) do %>
-        <div>
+        <div class="mt-4">
           Itemized Donations
           <hr class="border-b border-blue-400">
-          <%= for donation <- @donations do %>
-            <p>
-              $<%= elem(donation, 2) %> | <%= elem(donation, 1) %>
-              <span class="pl-20">
+            <%= for donation <- @donations do %>
+            <div class="flex flex-column mt-2">
+              <div class="basis-1/5">
+                $<%= elem(donation, 2) %>
+              </div>
+              <div class="basis-3/5">
+                <%= elem(donation, 1) %>
+              </div>
+              <div class="basis-1/6">
                 <button type="button" phx-click="remove-donation" phx-value-candidate-id={elem(donation, 0)} type="button" class="text-zinc-400 hover:text-zinc-500">
                   <span class="sr-only">Close</span>
                   <!-- Heroicon name: outline/x -->
@@ -120,8 +125,8 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
-              </span>
-            </p>
+              </div>
+            </div>
           <% end %>
         </div>
       <% end %>
