@@ -11,7 +11,6 @@ defmodule CitizenUpriseWeb.DonationSplitterLive do
         matches: [],
         candidate: "",
         candidates: [],
-        candidate_count: 0,
         total_donation: 0.0,
         donations: [],
         loading: false
@@ -41,20 +40,14 @@ defmodule CitizenUpriseWeb.DonationSplitterLive do
     {:noreply, socket}
   end
 
-  # @todo - also remove any donations for now/ is total_donations still needed?
   def handle_event("remove-candidate", %{"id" => id}, socket) do
     id = String.to_integer(id)
     candidate = Candidates.get_candidate_map(id)
     candidates = List.delete(socket.assigns.candidates, candidate)
 
-    # donation = Enum.find(socket.assigns.donations, fn {candidate_id, _ln, _amt} -> candidate_id == candidate.id end)
-    # donations = List.delete(socket.assigns.donations, donation)
-
     socket =
       assign(socket,
-        candidates: candidates#,
-        # donations: donations,
-        # total_donation: total_donation(donations)
+        candidates: candidates
       )
 
     {:noreply, socket}
@@ -121,7 +114,7 @@ defmodule CitizenUpriseWeb.DonationSplitterLive do
             :candidates,
             fn _ -> [Enum.at(candidates, 0) | socket.assigns.candidates] end
           )
-        {:noreply, assign(socket, candidate_count: Enum.count(socket.assigns.candidates), loading: false)}
+        {:noreply, assign(socket, loading: false)}
     end
   end
 
